@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-
+const PORT = process.env.PORT || 3000;
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -47,4 +47,4 @@ app.post('/login', async (req, res) => {
   }
 })
 
-app.listen(3000)
+app.listen(PORT)
