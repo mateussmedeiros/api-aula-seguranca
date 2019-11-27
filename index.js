@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const bcrypt = require('bcrypt')
 
 
 app.use(function(req, res, next) {
@@ -24,7 +23,6 @@ app.get('/users', (req, res) => {
 
 app.post('/register', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
     const user = { name: req.body.name, password: hashedPassword }
     users.push(user)
     res.status(201).send("Usuário criado com sucesso!")
@@ -39,7 +37,7 @@ app.post('/login', async (req, res) => {
     return res.status(400).send('Usuário não localizado');
   }
   try {
-    if(await bcrypt.compare(req.body.password, user.password)) {
+    if(user.pass == req.body.password) {
       res.send('Bem vindo!' + user.name)
     } else {
       res.send('Por favor, verifique suas credênciais!');
