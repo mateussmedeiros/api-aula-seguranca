@@ -56,12 +56,12 @@ app.post('/login', async (req, res) => {
   }
   try {
     if (user.pass == req.body.password) {
-      res.send('Bem vindo!' + user.name)
+      res.status(200).send("200")
     } else {
-      res.send('Por favor, verifique suas credênciais!');
+      res.status(400).send("400");
     }
   } catch (err) {
-    res.status(500);
+    res.status(500).send("500");
   }
 });
 

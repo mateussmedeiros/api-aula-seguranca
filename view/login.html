@@ -93,14 +93,15 @@
             url: url_prod + 'login',
             data: data,
             success: function (data, status) {
-                if(data == "201") {
-                    swal("Que bom!", "Seu registro foi efetuado com sucesso!", "success");
+
+                if(data == "200") {
+                    swal("Que bom!", "Login efetuado com sucesso!", "success");
                 }
             },
             error: function (data,status,error) {
-                
+
                 if(error == "Bad Request") {
-                    swal("Ops...!", "Este e-mail já está em uso", "info");
+                    swal("Ops...!","Por favor verifique suas credênciais","info");
                 }
             }
         });
