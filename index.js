@@ -31,7 +31,7 @@ app.post('/register', async (req, res) => {
   try {
     const user = { name: req.body.name, password: req.body.password, email:req.body.email }
     
-    let checkUser = users.find(user => user.email == req.body.email)  
+    let checkUser = users.find(user => user.email === req.body.email)  
     
     if(checkUser) {
       res.status(400).send("400");
