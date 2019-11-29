@@ -55,9 +55,11 @@ app.get('/login', (req, res) => {
 });
 app.post('/login', async (req, res) => {
   const user = users.find(user => user.name === req.body.name)
+  
   if (user == null) {
     return res.status(401).send("401");
   }
+  
   try {
     if (user.pass == req.body.password) {
       res.status(200).send("200")
@@ -65,8 +67,9 @@ app.post('/login', async (req, res) => {
       res.status(400).send("400");
     }
   } catch (err) {
-    res.status(500).send("500");
+      res.status(500).send("500");
   }
+
 });
 
 app.listen(PORT)
