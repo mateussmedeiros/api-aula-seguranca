@@ -2,11 +2,12 @@ const express = require('express')
 const app = express();
 const path = require('path');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use(function (request, res, next) {
+  request.header("Access-Control-Allow-Origin", "*");
+  request.header('Access-Control-Allow-Methods', '*');
+  request.header('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
   next();
 });
 
@@ -29,26 +30,38 @@ app.get('/users', (req, res) => {
 app.get('/register', (req, res) => {
   res.sendFile('register.html', { root: path.join(__dirname, './view') });
 });
-
-app.post('/register', async (req, res) => {
-  
+app.post('/register' , (request, response) => {
   try {
-    const user = { name: req.body.name, password: req.body.password, email:req.body.email }
-    
-    let checkUser = users.find(user => user.email === req.body.email)  
-    
-    if(checkUser.email === user.email) {
-      res.status(400).send("400");
-      return false;
-    }
-    
-    users.push(user)
-    res.status(201).send("201");
+    const user = { 
+                    name:request.body.name, 
+                    password:request.body.password, 
+                    email:request.body.email 
+                 }
 
-  } catch (err) {
-    res.status(500).send("500");
+    if(user == null || user == "") {
+      response
+      .status(401)
+    }
+
+    let checkUser = null;
+    
+    checkUser = users.find(user => user.email === request.body.email)  
+    
+    if(checkUser == null || checkUser == "") {
+      response
+      .status(400)
+    }
+
+    users.push(user);
+    response.status(201)
+
+  } catch(error) {
+    response
+    .status(500)
   }
 });
+
+
 
 app.get('/login', (req, res) => {
   res.sendFile('login.html', { root: path.join(__dirname, './view') });
@@ -57,17 +70,17 @@ app.post('/login', async (req, res) => {
   const user = users.find(user => user.email === req.body.email)
   
   if (user == null) {
-    return res.status(401).send("401");
+    return res.send("Usuário não localizado").status(401);
   }
   
   try {
     if (user.pass == req.body.password) {
-      res.status(200).send("200")
+      res.send("Successo!").status(200);
     } else {
-      res.status(400).send("400");
+      res.send("Error").status(400);
     }
   } catch (err) {
-      res.status(500).send("500");
+      res.status(500);
   }
 
 });

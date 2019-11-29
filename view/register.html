@@ -84,7 +84,7 @@
 
     $('#button').click(function (e) {
 
-        const url_dev = "http://localhost:3000";
+        const url_dev = "http://localhost:3000/";
         const url_prod = "https://aula-seguranca.herokuapp.com/";
 
         e.preventDefault();
@@ -112,21 +112,16 @@
 
         $.ajax({
             type: "POST",
-            url: url_prod + 'register',
+            url: url_dev + 'register',
             data: data,
             success: function (data, status) {
-                if(data == "201") {
-                    swal("Que bom!", "Seu registro foi efetuado com sucesso!", "success");
-                }
+                console.log(data)
+                console.log(status)
+                
+               
             },
             error:function(data,status,error) {
-                
-                if(error == "Bad Request") {
-                    swal("Ops...!", "Este e-mail já está em uso", "info");
-                } else {
-                    swal("Ops...houve um erro!", "estamos trabalhando para resolver o problema!", "info");
-                }
-                
+ 
             }
         });
     });

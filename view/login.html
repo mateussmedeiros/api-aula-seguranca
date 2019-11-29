@@ -82,7 +82,7 @@
 
     $('#button').click(function (e) {
 
-        const url_dev = "http://localhost:3000";
+        const url_dev = "http://localhost:3000/";
         const url_prod = "https://aula-seguranca.herokuapp.com/";
 
         e.preventDefault();
@@ -104,10 +104,13 @@
 
         $.ajax({
             type: "POST",
-            url: url_prod + 'login',
+            url: url_dev + 'login',
             data: data,
             success: function (data, status) {
-
+                if(data == "Unauthorized") {
+                    swal("Ops...!","Usuário não localizado","info");
+                }
+                
                 if(data == "200") {
                     swal("Que bom!", "Você será redirecionado...!", "success");
 
