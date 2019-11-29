@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -34,12 +34,18 @@ app.post('/register', async (req, res) => {
   
   try {
     const user = { name: req.body.name, password: req.body.password, email:req.body.email }
+    
+    if ( users.find(user => user.email === req.body.email) ) {
+      res.status(400);
+      return false;
+    }
+
     users.push(user)
-    res.status(201).send("Usuário criado com sucesso!")
+    res.status(201).send("201");
 
   } catch (err) {
     
-    res.status(500).send(err)
+    res.status(500).send("500");
  
   }
 });
@@ -50,7 +56,7 @@ app.get('/login', (req, res) => {
 app.post('/login', async (req, res) => {
   const user = users.find(user => user.name === req.body.name)
   if (user == null) {
-    return res.status(400).send('Usuário não localizado');
+    return res.status(401).send("401");
   }
   try {
     if (user.pass == req.body.password) {
@@ -59,7 +65,9 @@ app.post('/login', async (req, res) => {
       res.send('Por favor, verifique suas credênciais!');
     }
   } catch (err) {
-    res.status(500).send()
+
+    res.status(500);
+  
   }
 });
 
