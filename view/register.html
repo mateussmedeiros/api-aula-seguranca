@@ -89,17 +89,17 @@
 
         e.preventDefault();
         
-        if($('#name').val()) {
+        if($('#name').val() == "") {
             swal("Ops...!", "preencha o campo de nome!", "info");
             return false;
         }
 
-        if($('#email').val()) {
+        if($('#email').val() == "") {
             swal("Ops...!", "preencha o campo de e-mail!", "info");
             return false;
         }
 
-        if($('#password').val()) {
+        if($('#password').val() == "") {
             swal("Ops...!", "preencha o campo de password!", "info");
             return false;
         }
