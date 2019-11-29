@@ -94,13 +94,13 @@
 
         $.ajax({
             type: "POST",
-            url: url + '/register',
+            url: url_dev + '/register',
             data: data,
             success: function (data) {
-                alert(data); // show response from the php script.
+                console.log(data); // show response from the php script.
             },
             error: function (data) {
-                alert(data)
+                console.log(data); 
             }
         });
     });

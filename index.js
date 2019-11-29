@@ -14,34 +14,39 @@ app.use(express.json())
 
 const users = [];
 
-app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: path.join(__dirname, './view') });
-});
-app.get('/register', (req, res) => {
-  res.sendFile('register.html', { root: path.join(__dirname, './view') });
-});
-app.get('/login', (req, res) => {
-  res.sendFile('login.html', { root: path.join(__dirname, './view') });
-});
+
+
 app.get('/perfil', (req, res) => {
   res.sendFile('perfil.html', { root: path.join(__dirname, './view') });
 });
 
-
+app.get('/', (req, res) => {
+  res.sendFile('index.html', { root: path.join(__dirname, './view') });
+});
 app.get('/users', (req, res) => {
   res.json(users)
 })
 
+app.get('/register', (req, res) => {
+  res.sendFile('register.html', { root: path.join(__dirname, './view') });
+});
 app.post('/register', async (req, res) => {
+  
   try {
-    const user = { name: req.body.name, password: hashedPassword }
+    const user = { name: req.body.name, password: req.body.password, email:req.body.email }
     users.push(user)
     res.status(201).send("Usuário criado com sucesso!")
+
   } catch (err) {
-    res.status(500).send("Ops..., houve um erro!")
+    
+    res.status(500).send(err)
+ 
   }
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile('login.html', { root: path.join(__dirname, './view') });
+});
 app.post('/login', async (req, res) => {
   const user = users.find(user => user.name === req.body.name)
   if (user == null) {
