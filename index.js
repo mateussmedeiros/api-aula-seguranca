@@ -35,6 +35,10 @@ app.get('/register', (req, res) => {
   res.sendFile('register.html', { root: path.join(__dirname, './view') });
 });
 app.post('/register' , (req, res) => {
+  
+  if(!req.body.name || !req.body.email || !req.body.password) {
+    return res.status(400).send({"data":"precisa preencher nome, email e senha"});
+  }
 
   const found = users.find(item => item.email === req.body.email);
 
@@ -48,13 +52,30 @@ app.post('/register' , (req, res) => {
   }
 
   users.push(user);
-  res.status(201).send({"data":"criado com sucesso"});   
+  return res.status(201).send({"data":"criado com sucesso"});   
 });
 
 
 
 app.post('/login', async (req, res) => {
+  const found = users.find(item => item.email === req.body.email);
+
+  if(!found) {
+    return res.status(404).send({"data":"usuário não localizado"});
   
+  } else {
+
+    if(found.password === req.body.password &&
+       found.email === req.body.email ) {
+        return res.status(200).send({"data":"login autorizado"});
+
+    } else {
+      return res.status(404).send({"data":"check suas credênciais"});
+    
+    }
+
+  }
+
 });
 
 app.listen(PORT)
