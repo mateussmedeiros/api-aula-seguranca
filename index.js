@@ -54,7 +54,7 @@ app.get('/login', (req, res) => {
   res.sendFile('login.html', { root: path.join(__dirname, './view') });
 });
 app.post('/login', async (req, res) => {
-  const user = users.find(user => user.name === req.body.name)
+  const user = users.find(user => user.email === req.body.email)
   
   if (user == null) {
     return res.status(401).send("401");

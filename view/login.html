@@ -117,6 +117,10 @@
                 }
             },
             error: function (data,status,error) {
+                
+                if(error == "Unauthorized") {
+                    swal("Ops...!","Usuário não localizado","info");
+                }
 
                 if(error == "Bad Request") {
                     swal("Ops...!","Por favor verifique suas credênciais","info");
