@@ -11,6 +11,29 @@
 </head>
 
 <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
     <main class="container my-5">
         <div class="row mb-5">
             <div class="col-12">
@@ -19,7 +42,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-               
+
                 <form id="formCadastro">
                     <div class="form-group">
                         <label for="name">Nome</label>
@@ -33,7 +56,7 @@
                         <label for="password">Senha</label>
                         <input type="password" class="form-control" name="password" id="password">
                     </div>
-                    <button type="submit" id="button" class="btn btn-primary">Registrar</button>
+                    <button type="submit" id="button" class="btn btn-primary">Registrar-se</button>
                 </form>
 
             </div>
@@ -47,35 +70,34 @@
         integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P"
         crossorigin="anonymous"></script>
 </body>
+
 </html>
 <script>
 
-    $('#button').click( function(e) {
-        
-        const url_dev  = "http://localhost:3000";
+    $('#button').click(function (e) {
+
+        const url_dev = "http://localhost:3000";
         const url_prod = "http://localhost:3000";
 
         e.preventDefault();
-        
+
         const data = {
-            'name':$('#name').val(),
-            'email':$('#email').val(),
-            'password':$('#password').val(),
+            'name': $('#name').val(),
+            'email': $('#email').val(),
+            'password': $('#password').val(),
         }
 
         $.ajax({
-           type: "POST",
-           url: url + '/register',
-           data: data,
-           success: function(data)
-           {
-               alert(data); // show response from the php script.
-           },
-           error: function(data)
-           {
-               alert(data)
-           }
-         });
+            type: "POST",
+            url: url + '/register',
+            data: data,
+            success: function (data) {
+                alert(data); // show response from the php script.
+            },
+            error: function (data) {
+                alert(data)
+            }
+        });
     });
 
 </script>
