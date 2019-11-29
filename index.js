@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express();
-const path  = require('path');
+const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
 
 app.use(express.json())
@@ -15,13 +15,16 @@ app.use(express.json())
 const users = [];
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html', {root: path.join(__dirname, './view')});
+  res.sendFile('index.html', { root: path.join(__dirname, './view') });
 });
 app.get('/register', (req, res) => {
-  res.sendFile('register.html', {root: path.join(__dirname, './view')});
+  res.sendFile('register.html', { root: path.join(__dirname, './view') });
 });
 app.get('/login', (req, res) => {
-  res.sendFile('login.html', {root: path.join(__dirname, './view')});
+  res.sendFile('login.html', { root: path.join(__dirname, './view') });
+});
+app.get('/perfil', (req, res) => {
+  res.sendFile('perfil.html', { root: path.join(__dirname, './view') });
 });
 
 
@@ -45,12 +48,12 @@ app.post('/login', async (req, res) => {
     return res.status(400).send('Usuário não localizado');
   }
   try {
-    if(user.pass == req.body.password) {
+    if (user.pass == req.body.password) {
       res.send('Bem vindo!' + user.name)
     } else {
       res.send('Por favor, verifique suas credênciais!');
     }
-  } catch (err){
+  } catch (err) {
     res.status(500).send()
   }
 });

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Perfil</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css"
         integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
 </head>
@@ -25,13 +25,14 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
+                            <a class="nav-link" href="/perfil">Perfil</a>
                         </li>
                     </ul>
+                    <form class="form-inline">
+                        <a class="btn btn-outline-danger" href="/logout">Sair</a>
+                    </form>
                 </div>
+
             </div>
         </nav>
     </header>
@@ -39,27 +40,18 @@
     <main class="container my-5">
         <div class="row mb-5">
             <div class="col-12">
-                <h1>Login</h1>
+                <h1>Meu perfil</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <form>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" required>
+                <div class="media">
+                    <img src="https://www.dinneer.com/midias/Usuarios/_35132.png" width="75" class="mr-3">
+                    <div class="media-body">
+                        <h5 class="mt-0">Nome do usuário</h5>
+                        <p><a href="/logout">Sair</a></p>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Senha</label>
-                        <input type="password" class="form-control" id="password" required>
-                    </div>
-                    <button class="btn btn-info" id="button">Entrar</button>
-                </form>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-12">
-                <p>Não tem conta?<a href="/register"> Registre-se</a></p>
+                </div>
             </div>
         </div>
     </main>
@@ -74,31 +66,3 @@
 </body>
 
 </html>
-<script>
-
-    $('#button').click(function (e) {
-
-        const url_dev = "http://localhost:3000";
-        const url_prod = "http://localhost:3000";
-
-        e.preventDefault();
-
-        const data = {
-            'email': $('#email').val(),
-            'password': $('#password').val(),
-        }
-
-        $.ajax({
-            type: "POST",
-            url: url + '/register',
-            data: data,
-            success: function (data) {
-                alert(data); // show response from the php script.
-            },
-            error: function (data) {
-                alert(data)
-            }
-        });
-    });
-
-</script>
