@@ -99,7 +99,11 @@
             success: function (data, status) {
 
                 if(data == "200") {
-                    swal("Que bom!", "Login efetuado com sucesso!", "success");
+                    swal("Que bom!", "Você será redirecionado...!", "success");
+
+                    window.setTimeout(function() {
+                        window.location.href = 'https://aula-seguranca.herokuapp.com/perfil';
+                    }, 3000);
                 }
             },
             error: function (data,status,error) {
