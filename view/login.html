@@ -87,6 +87,16 @@
 
         e.preventDefault();
 
+        if($('#email').val()) {
+            swal("Ops...!", "preencha o campo de e-mail!", "info");
+            return false;
+        }
+
+        if($('#password').val()) {
+            swal("Ops...!", "preencha o campo de password!", "info");
+            return false;
+        }
+
         const data = {
             'email': $('#email').val(),
             'password': $('#password').val(),

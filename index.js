@@ -17,15 +17,19 @@ const users = [];
 app.get('/perfil', (req, res) => {
   res.sendFile('perfil.html', { root: path.join(__dirname, './view') });
 });
+
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, './view') });
 });
+
 app.get('/users', (req, res) => {
   res.json(users)
 })
+
 app.get('/register', (req, res) => {
   res.sendFile('register.html', { root: path.join(__dirname, './view') });
 });
+
 app.post('/register', async (req, res) => {
   
   try {
@@ -33,7 +37,7 @@ app.post('/register', async (req, res) => {
     
     let checkUser = users.find(user => user.email === req.body.email)  
     
-    if(checkUser) {
+    if(checkUser.email === user.email) {
       res.status(400).send("400");
       return false;
     }

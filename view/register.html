@@ -88,6 +88,21 @@
         const url_prod = "https://aula-seguranca.herokuapp.com/";
 
         e.preventDefault();
+        
+        if($('#name').val()) {
+            swal("Ops...!", "preencha o campo de nome!", "info");
+            return false;
+        }
+
+        if($('#email').val()) {
+            swal("Ops...!", "preencha o campo de e-mail!", "info");
+            return false;
+        }
+
+        if($('#password').val()) {
+            swal("Ops...!", "preencha o campo de password!", "info");
+            return false;
+        }
 
         const data = {
             'name': $('#name').val(),
