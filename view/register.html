@@ -85,7 +85,7 @@
     $('#button').click(function (e) {
 
         const url_dev = "http://localhost:3000";
-        const url_prod = "http://localhost:3000";
+        const url_prod = "https://aula-seguranca.herokuapp.com/";
 
         e.preventDefault();
 
@@ -97,7 +97,7 @@
 
         $.ajax({
             type: "POST",
-            url: url_dev + '/register',
+            url: url_prod + '/register',
             data: data,
             success: function (data, status) {
                 if(data == "201") {
