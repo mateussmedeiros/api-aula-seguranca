@@ -92,11 +92,16 @@
             type: "POST",
             url: url_prod + 'login',
             data: data,
-            success: function (data) {
-                alert(data); // show response from the php script.
+            success: function (data, status) {
+                if(data == "201") {
+                    swal("Que bom!", "Seu registro foi efetuado com sucesso!", "success");
+                }
             },
-            error: function (data) {
-                alert(data)
+            error: function (data,status,error) {
+                
+                if(error == "Bad Request") {
+                    swal("Ops...!", "Este e-mail já está em uso", "info");
+                }
             }
         });
     });
