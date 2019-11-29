@@ -66,23 +66,22 @@ app.post('/register' , (request, response) => {
 app.get('/login', (req, res) => {
   res.sendFile('login.html', { root: path.join(__dirname, './view') });
 });
-app.post('/login', async (req, res) => {
-  const user = users.find(user => user.email === req.body.email)
+app.post('/login', async (request, responde) => {
+  const user = users.find(user => user.email === request.body.email)
   
   if (user == null) {
-    return res.send("Usuário não localizado").status(401);
+    return response.status(401);
   }
   
   try {
-    if (user.pass == req.body.password) {
-      res.send("Successo!").status(200);
+    if (user.pass == request.body.password) {
+      response.status(200);
     } else {
-      res.send("Error").status(400);
+      response.status(400);
     }
   } catch (err) {
       res.status(500);
   }
-
 });
 
 app.listen(PORT)

@@ -107,27 +107,13 @@
             url: url_dev + 'login',
             data: data,
             success: function (data, status) {
-                if(data == "Unauthorized") {
-                    swal("Ops...!","Usuário não localizado","info");
-                }
-                
-                if(data == "200") {
-                    swal("Que bom!", "Você será redirecionado...!", "success");
-
-                    window.setTimeout(function() {
-                        window.location.href = 'https://aula-seguranca.herokuapp.com/perfil';
-                    }, 3000);
-                }
+                console.log(data)
+                console.info(status)
             },
             error: function (data,status,error) {
-                
-                if(error == "Unauthorized") {
-                    swal("Ops...!","Usuário não localizado","info");
-                }
-
-                if(error == "Bad Request") {
-                    swal("Ops...!","Por favor verifique suas credênciais","info");
-                }
+                console.log(data)
+                console.info(status)
+                console.error(error)
             }
         });
     });
