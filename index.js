@@ -4,10 +4,10 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3000;
 
-app.use(function (request, res, next) {
-  request.header("Access-Control-Allow-Origin", "*");
-  request.header('Access-Control-Allow-Methods', '*');
-  request.header('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
+app.use(function (req, res, next) {
+  req.header("Access-Control-Allow-Origin", "*");
+  req.header('Access-Control-Allow-Methods', '*');
+  req.header('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
   next();
 });
 
@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, './view') });
 });
 
+app.get('/login', (req, res) => {
+  res.sendFile('login.html', { root: path.join(__dirname, './view') });
+});
+
 app.get('/users', (req, res) => {
   res.json(users)
 })
@@ -30,58 +34,27 @@ app.get('/users', (req, res) => {
 app.get('/register', (req, res) => {
   res.sendFile('register.html', { root: path.join(__dirname, './view') });
 });
-app.post('/register' , (request, response) => {
-  try {
-    const user = { 
-                    name:request.body.name, 
-                    password:request.body.password, 
-                    email:request.body.email 
-                 }
+app.post('/register' , (req, res) => {
 
-    if(user == null || user == "") {
-      response
-      .status(401)
-    }
+  const found = users.find(item => item.email === req.body.email);
 
-    let checkUser = null;
-    
-    checkUser = users.find(user => user.email === request.body.email)  
-    
-    if(checkUser == null || checkUser == "") {
-      response
-      .status(400)
-    }
+  if(found)
+    return res.status(400).send({"data":"e-mail já está sendo utilizado!"});
 
-    users.push(user);
-    response.status(201)
-
-  } catch(error) {
-    response
-    .status(500)
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+    password:req.body.password
   }
+
+  users.push(user);
+  res.status(201).send({"data":"criado com sucesso"});   
 });
 
 
 
-app.get('/login', (req, res) => {
-  res.sendFile('login.html', { root: path.join(__dirname, './view') });
-});
-app.post('/login', async (request, responde) => {
-  const user = users.find(user => user.email === request.body.email)
+app.post('/login', async (req, res) => {
   
-  if (user == null) {
-    return response.status(401);
-  }
-  
-  try {
-    if (user.pass == request.body.password) {
-      response.status(200);
-    } else {
-      response.status(400);
-    }
-  } catch (err) {
-      res.status(500);
-  }
 });
 
 app.listen(PORT)
