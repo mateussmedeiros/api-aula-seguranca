@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 3000;
 app.use(function (req, res, next) {
   req.header("Access-Control-Allow-Origin", "*");
   req.header('Access-Control-Allow-Methods', '*');
-  req.header('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
+  req.header('Access-Control-Allow-Headers', '*');
   next();
 });
 
