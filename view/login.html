@@ -106,9 +106,12 @@
             url: 'http://localhost:3000/login',
             data: {password:password, email:email},
             success: function (response, status) {
-                 console.log(response)
-                if(response.status == '201') {
-                    swal("Ufa!", response.data, "success");
+                
+                if(response.data == 'login autorizado') {
+
+                    localStorage.setItem('user', JSON.stringify(response.user));
+                    
+                    window.location.href  = 'http://localhost:3000/perfil';
                 }
 
                 if(response.status == '400') {

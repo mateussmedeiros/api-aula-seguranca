@@ -86,7 +86,7 @@ app.post('/login', async (req, res) => {
   if(!found) 
     return res.send({'data':'usuário não encontrado','status':'404'}).status(404);
 
- return res.send({'data':'login autorizado'}).status(200);
+ return res.send({'data':'login autorizado', 'user':{name:found.name, email:found.email}}).status(200);
 });
 
 app.listen(PORT)

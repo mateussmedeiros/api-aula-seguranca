@@ -48,7 +48,7 @@
                 <div class="media">
                     <img src="https://www.dinneer.com/midias/Usuarios/_35132.png" width="75" class="mr-3">
                     <div class="media-body">
-                        <h5 class="mt-0">Nome do usuário</h5>
+                        <h5 class="mt-0" id="idName">Nome do usuário</h5>
                         <p><a href="/logout">Sair</a></p>
                     </div>
                 </div>
@@ -66,3 +66,10 @@
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+        const data =  JSON.parse( localStorage.getItem('user') );
+        $('#idName').text(data.name);
+    })
+</script>
