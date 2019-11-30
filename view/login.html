@@ -86,9 +86,6 @@
 
     $('#button').click(function (e) {
 
-        const url_dev = "http://localhost:3000/";
-        const url_prod = "https://aula-seguranca.herokuapp.com/";
-
         e.preventDefault();
 
         if ($('#email').val() == "") {
@@ -101,20 +98,25 @@
             return false;
         }
 
-        const data = {
-            'email': $('#email').val(),
-            'password': $('#password').val(),
-        }
+        const password = $('#password').val();
+        const email = $('#email').val();
 
         $.ajax({
             type: "POST",
             url: 'http://localhost:3000/login',
-            data: data,
-            success: function (data, status) {
-                if (status) {
-                    console.log(data)
-                    swal("Ufa!", "login autorizado", "success");
+            data: {password:password, email:email},
+            success: function (response, status) {
+                 console.log(response)
+                if(response.status == '201') {
+                    swal("Ufa!", response.data, "success");
+                }
 
+                if(response.status == '400') {
+                    swal("Ops!", response.data, "info");
+                }
+
+                if(response.status == '404') {
+                    swal("Ops!", response.data, "info");
                 }
             },
             error: function (data, status, error) {

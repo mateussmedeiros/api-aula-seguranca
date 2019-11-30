@@ -115,12 +115,20 @@
         
         $.ajax({
             type: "POST",
-            url: 'https://aula-seguranca.herokuapp.com/register',
+            url: 'http://localhost:3000/register',
             data: { name: name, email: email, password: password },
-            success: function (data, status) {
-                console.log(data)
-                if (status == 'success') {
-                    swal("Ufa!", "seu cadastro foi criado com sucesso!", "success");
+            success: function (response, status) {
+                
+                if(response.status == '201') {
+                    swal("Ufa!", response.data, "success");
+                }
+
+                if(response.status == '400') {
+                    swal("Ops!", response.data, "info");
+                }
+
+                if(response.status == '404') {
+                    swal("Ops!", response.data, "info");
                 }
 
             },

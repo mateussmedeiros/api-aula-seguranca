@@ -3,7 +3,12 @@
     {
       "name": "Fischer",
       "email": "pedro.fischer22@gmail.com",
-      "passowrd": "123456"
+      "password": "123456"
+    },
+    {
+      "name": "teste",
+      "email": "teste@gmail.com",
+      "password": "f3fwfweew"
     }
   ]
 }

@@ -48,34 +48,45 @@ app.get('/register', (req, res) => {
 app.post('/register' , async (req, res) => {
   
   if(req.body.name == "" || req.body.email == "" || req.body.password == "")
-    return res.send({'data':'preencha todos os campos'}).status(400);
+    return res.send({'data':'preencha todos os campos', 'status':'400'}).status(400);
 
-    db.get('users')
-    .push({
-      name : req.body.name,
-      email : req.body.email,
-      passowrd : req.body.password 
-    })
-    .write();
-
-    return res.send({'data':'criado com sucesso'}).status(201);
-  
- 
-});
-
-
-
-app.post('/login', async (req, res) => {
- 
-  if(req.body.name == "" || req.body.email == "" || req.body.password == "")
-    return res.send({'data':'preencha todos os campos'}).status(400);
 
   const found = db.get('users')
                   .find({ 
                     email:req.body.email 
                   })
                   .value();
+  if(found)
+    return res.send({'data':'email já em uso no sistema', 'status':'400'}).status(400)
+                  
+    db.get('users')
+    .push({
+      name : req.body.name,
+      email : req.body.email,
+      password : req.body.password 
+    })
+    .write();
 
+    return res.send({'data':'criado com sucesso', 'status':'201'}).status(201);
+  
+ 
+});
+
+app.post('/login', async (req, res) => {
+ 
+  if(req.body.name == "" || req.body.email == "" || req.body.password == "")
+    return res.send({'data':'preencha todos os campos','status':'400'}).status(400);
+
+  const found = db.get('users')
+                  .find({ 
+                    email:req.body.email ,
+                    password:req.body.password
+                  })
+                  .value();
+  if(!found) 
+    return res.send({'data':'usuário não encontrado','status':'404'}).status(404);
+
+ return res.send({'data':'login autorizado'}).status(200);
 });
 
 app.listen(PORT)
