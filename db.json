@@ -1,0 +1,15 @@
+{
+  "users": [
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {
+      "name": "pedro",
+      "email": "pedro.fischer@gmail.com",
+      "password": "1456"
+    }
+  ]
+}

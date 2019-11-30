@@ -104,16 +104,19 @@
 
         $.ajax({
             type: "POST",
-            url: url_prod + 'login',
+            url: 'https://aula-seguranca.herokuapp.com/login',
             data: data,
             success: function (data, status) {
-                console.log(data)
-                console.info(status)
+                if(status) {
+                    console.log(data)
+                    swal("Ufa!", "login autorizado", "success");
+
+                }
             },
             error: function (data,status,error) {
-                console.log(data)
-                console.info(status)
-                console.error(error)
+                if(error) {
+                    swal("Ops!", "houve um erro ao efetuar o login, verifique sua credências!", "error");
+                }
             }
         });
     });

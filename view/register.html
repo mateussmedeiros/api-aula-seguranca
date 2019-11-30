@@ -103,27 +103,26 @@
             swal("Ops...!", "preencha o campo de password!", "info");
             return false;
         }
-
-        const data = {
-            'name': $('#name').val(),
-            'email': $('#email').val(),
-            'password': $('#password').val(),
-        }
+        
+        const name = $('#name').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
 
         $.ajax({
             type: "POST",
-            url: url_prod + 'register',
-            data: data,
+            url: 'https://aula-seguranca.herokuapp.com/register',
+            data: {name:name, email:email, password:password},
             success: function (data, status) {
                 console.log(data)
-                console.log(status)
+                if(status == 'success') {
+                    swal("Ufa!", "seu cadastro foi criado com sucesso!", "success");
+                }
                 
-               
             },
             error:function(data,status,error) {
-                console.log(data)
-                console.info(status)
-                console.error(error)
+                if(error) {
+                    swal("Ops!", "houve um erro ao criar seu cadastro!", "error");
+                }
  
             }
         });
