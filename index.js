@@ -1,13 +1,14 @@
-const express = require('express')
-const app = express();
-
+var express = require('express'),
+app = express()
+const bodyParser = require('body-parser')
 const path = require('path');
 const lowdb = require('lowdb');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-
 const adapter = new FileSync('db.json');
 const db = low(adapter);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 db.defaults({ users:[] }).write();
 
@@ -21,7 +22,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(express.json())
+
 
 
 app.get('/perfil', (req, res) => {
@@ -45,26 +46,35 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register' , async (req, res) => {
-  try {
-    const user = { name: req.body.name, password: req.body.password, email:req.body.email }
-    return res.send(user);
+  
+  if(req.body.name == "" || req.body.email == "" || req.body.password == "")
+    return res.send({'data':'preencha todos os campos'}).status(400);
+
     db.get('users')
-    .push({name:name ,email: email,password: password})
-    .write()
+    .push({
+      name : req.body.name,
+      email : req.body.email,
+      passowrd : req.body.password 
+    })
+    .write();
 
-  } catch (err) {
-    res.status(500).send("Ops..., houve um erro!")
-
-    res.status(500).send(err)
-
-  }
+    return res.send({'data':'criado com sucesso'}).status(201);
+  
  
 });
 
 
 
 app.post('/login', async (req, res) => {
-  res.send(req.body.email)
+ 
+  if(req.body.name == "" || req.body.email == "" || req.body.password == "")
+    return res.send({'data':'preencha todos os campos'}).status(400);
+
+  const found = db.get('users')
+                  .find({ 
+                    email:req.body.email 
+                  })
+                  .value();
 
 });
 

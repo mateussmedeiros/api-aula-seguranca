@@ -1,15 +1,9 @@
 {
   "users": [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
     {
-      "name": "pedro",
-      "email": "pedro.fischer@gmail.com",
-      "password": "1456"
+      "name": "Fischer",
+      "email": "pedro.fischer22@gmail.com",
+      "passowrd": "123456"
     }
   ]
 }

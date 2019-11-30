@@ -107,10 +107,10 @@
         const name = $('#name').val();
         const email = $('#email').val();
         const password = $('#password').val();
-
+        
         $.ajax({
             type: "POST",
-            url: 'https://aula-seguranca.herokuapp.com/register',
+            url: 'http://localhost:3000/register',
             data: {name:name, email:email, password:password},
             success: function (data, status) {
                 console.log(data)
