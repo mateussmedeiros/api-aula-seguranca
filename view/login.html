@@ -103,7 +103,7 @@
 
         $.ajax({
             type: "POST",
-            url: 'https://aula-seguranca.herokkuapp.com/login',
+            url: 'http://aula-seguranca.herokkuapp.com/login',
             data: {password:password, email:email},
             success: function (response, status) {
                 
@@ -111,7 +111,7 @@
 
                     localStorage.setItem('user', JSON.stringify(response.user));
                     
-                    window.location.href  = 'https://aula-seguranca.herokkuapp.com/perfil';
+                    window.location.href  = 'http://aula-seguranca.herokkuapp.com/perfil';
                 }
 
                 if(response.status == '400') {
