@@ -83,7 +83,16 @@
 </body>
 
 </html>
+<script src="https://www.google.com/recaptcha/api.js?render=6Ld3ZsUUAAAAAITKkJ3G6tDl69a-nVTDq5cZgrAh">
+</script>
 <script>
+    $(document).ready( function() {
+        grecaptcha.execute('put your site key here', {action: 'homepage'}).then(function(token) {
+        // pass the token to the backend script for verification
+        
+    
+        });
+    });
 
     $('#button').click(function (e) {
 
