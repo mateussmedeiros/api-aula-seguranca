@@ -88,6 +88,9 @@
 
         e.preventDefault();
 
+        const url_dev = "http://localhost:3000/";
+        const url_prod = "https://aula-seguranca.herokuapp.com/";
+
         if ($('#email').val() == "") {
             swal("Ops...!", "preencha o campo de e-mail!", "info");
             return false;
@@ -103,7 +106,7 @@
 
         $.ajax({
             type: "POST",
-            url: 'https://aula-seguranca.herokkuapp.com/login',
+            url: url_prod + 'login',
             data: {password:password, email:email},
             success: function (response, status) {
                 
