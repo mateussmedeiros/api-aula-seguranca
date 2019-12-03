@@ -14,29 +14,30 @@ db.defaults({ users: [] }).write();
 
 const nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: '',
-    pass: ''
+app.post('/email', async (req, res) => {
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '',
+      pass: ''
+    }
+  })
+
+  var mailOptions = {
+    from: 'My Name <my.email@gmail.com>',
+    to: 'receiver.email@gmail.com',
+    subject: 'Nodemailer test',
+    text: 'Hello World!!'
   }
-})
 
-var mailOptions = {
-  from: 'My Name <my.email@gmail.com>',
-  to: 'receiver.email@gmail.com',
-  subject: 'Nodemailer test',
-  text: 'Hello World!!'
-}
-
-transporter.sendMail(mailOptions, function (err, res) {
-  if (err) {
-    console.log('Error');
-  } else {
-    console.log('Email Sent');
-  }
-})
-
+  transporter.sendMail(mailOptions, function (err, res) {
+    if (err) {
+      console.log('Error');
+    } else {
+      console.log('Email Sent');
+    }
+  })
+});
 
 const PORT = process.env.PORT || 3000;
 
