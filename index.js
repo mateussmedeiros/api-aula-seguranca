@@ -14,31 +14,6 @@ db.defaults({ users: [] }).write();
 
 const nodemailer = require('nodemailer');
 
-app.post('/email', async (req, res) => {
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: '',
-      pass: ''
-    }
-  })
-
-  var mailOptions = {
-    from: 'My Name <my.email@gmail.com>',
-    to: 'receiver.email@gmail.com',
-    subject: 'Nodemailer test',
-    text: 'Hello World!!'
-  }
-
-  transporter.sendMail(mailOptions, function (err, res) {
-    if (err) {
-      console.log('Error');
-    } else {
-      console.log('Email Sent');
-    }
-  })
-});
-
 const PORT = process.env.PORT || 3000;
 
 app.use(function (req, res, next) {
@@ -71,6 +46,32 @@ app.get('/users', (req, res) => {
 
 app.get('/register', (req, res) => {
   res.sendFile('register.html', { root: path.join(__dirname, './view') });
+});
+
+app.post('/email', async (req, res) => {
+  
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'aula.seguranca2@gmail.com',
+      pass: 'S3gur@nca'
+    }
+  })
+
+  var mailOptions = {
+    from: req.body.remetente,
+    to: req.body.destinatario,
+    subject: req.body.assunto,
+    text: req.body.msg
+  }
+
+  transporter.sendMail(mailOptions, function (err, res) {
+    if (err) {
+      console.log('Error');
+    } else {
+      console.log('Email Sent');
+    }
+  })
 });
 
 app.post('/register', async (req, res) => {

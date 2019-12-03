@@ -81,17 +81,53 @@
 </html>
 
 <script>
-    $(document).ready(function () {
+    $('#button').click(function (e) {
+
+        e.preventDefault();
 
         const url_dev = "http://localhost:3000/";
         const url_prod = "https://aula-seguranca.herokuapp.com/";
 
-        const data = JSON.parse(localStorage.getItem('user'));
-        $('#idName').text(data.name);
-    })
+        if ($('#remetente').val() == "") {
+            swal("Ops...!", "preencha o campo de remetente!", "info");
+            return false;
+        }
+        if ($('#destinatario').val() == "") {
+            swal("Ops...!", "preencha o campo de destinatario!", "info");
+            return false;
+        }
+        if ($('#assunto').val() == "") {
+            swal("Ops...!", "preencha o assunto", "info");
+            return false;
+        }
+        if ($('#msg').val() == "") {
+            swal("Ops...!", "preencha a mensagem", "info");
+            return false;
+        }
 
-    $('#idSair').click(function () {
-        localStorage.clear();
-        window.location.href = url_prod + 'index';
+
+        const remetente = $('#remetente').val();
+        const destinatario = $('#destinatario').val();
+        const assunto = $('#assunto').val();
+        const msg = $('#msg').val();
+
+        $.ajax({
+            type: "POST",
+            url: url_prod + 'email',
+            data: {
+                remetente: remetente, 
+                destinatario: destinatario, 
+                assunto: assunto, 
+                msg: msg
+            },
+            success: function (response, status) {
+                console.log(response);
+            },
+            error: function (data, status, error) {
+                console.log(data);
+            }
+        });
     });
+
+</script>
 </script>
